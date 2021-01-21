@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hello, World</title>
+    <style>
+        label, input {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+<form action="/person" method="post">
+    <label>
+        Name:
+        <input type="text" name="Name" value="Khalid Abuhakmeh" />
+    </label>
+    <label>
+        Birthday:
+        <input type="text" name="Birthday" value="1983-07-15" />
+    </label>
+    <input type="hidden" name="count[]" value="3">
+    <input type="hidden" name="count[]" value="2">
+    <input type="hidden" name="count[]" value="1">
+    <button type="submit">
+        Submit Form
+    </button>
+</form>
+</body>
+</html>
