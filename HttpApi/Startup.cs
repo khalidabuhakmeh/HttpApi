@@ -1,6 +1,5 @@
 using FluentValidation;
 using HttpApi.Modules;
-using HttpApi.Requests;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
