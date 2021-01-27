@@ -1,4 +1,6 @@
+using FluentValidation;
 using HttpApi.Modules;
+using HttpApi.Requests;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,6 +16,9 @@ namespace HttpApi
         {
             services.AddSingleton(new Person {Name = "Khalid"});
             services.AddTransient<HelloWorldModule>();
+
+            // add scoped
+            services.AddValidatorsFromAssemblyContaining<Startup>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

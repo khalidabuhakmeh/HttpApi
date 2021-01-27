@@ -10,4 +10,9 @@
       </None>
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="FluentValidation" Version="9.4.0" />
+      <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="9.4.0" />
+    </ItemGroup>
+
 </Project>

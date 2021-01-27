@@ -56,7 +56,7 @@ namespace HttpApi
                     throw new Exception($"{nameof(HttpContext)} must be the first parameter of any endpoint.");
                 
                 endpoints.MapMethods(method.template, method.httpMethod, context => {
-                    var module = endpoints.ServiceProvider.GetService(type);
+                    var module = context.RequestServices.GetService(type);
 
                     if (module is null) {
                         throw new Exception($"{type.Name} is not registered in services collection.");
@@ -68,7 +68,7 @@ namespace HttpApi
                     // skip httpContext
                     foreach (var parameter in parameters.Skip(1))
                     {
-                        var arg = endpoints.ServiceProvider.GetService(parameter.ParameterType);
+                        var arg = context.RequestServices.GetService(parameter.ParameterType);
                         if (arg is null) {
                             throw new Exception($"{parameter.ParameterType} is not registered in services collection.");
                         }

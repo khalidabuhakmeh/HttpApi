@@ -1,7 +1,7 @@
+using System;
 using System.IO;
-using System.Net.Mime;
-using System.Text;
 using System.Threading.Tasks;
+using FluentValidation;
 using HttpApi.Requests;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -39,12 +39,22 @@ namespace HttpApi.Modules
         }
 
         [HttpPost("/person")]
-        public async Task Post(HttpContext context)
+        public async Task Post(HttpContext context, IValidator<PersonRequest> validator)
         {
             var person = await context.Request.BindFromFormAsync<PersonRequest>();
             context.Response.ContentType = "text/html";
-            await context.Response.WriteAsync($"<h1>&#129321; Happy Birthday, {person.Name} ({person.Birthday:d})!</h1>");
-            await context.Response.WriteAsync($"<h2>Counting {string.Join(",",person.Count)}...</h2>");
+
+            var validation = await validator.ValidateAsync(person);
+
+            if (validation.IsValid)
+            {
+                await context.Response.WriteAsync(
+                    $"<h1>&#129321; Happy Birthday, {person.Name} ({person.Birthday:d})!</h1>");
+                await context.Response.WriteAsync($"<h2>Counting {string.Join(",", person.Count)}...</h2>");
+                return;
+            }
+
+            throw new Exception("oops!");
         }
         
     }
